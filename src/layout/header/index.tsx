@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 
 import { Layout } from 'antd';
-import { User } from './user';
+import User from './user';
 const { Header } = Layout;
 interface IUser {
   id: [string, number],
@@ -33,10 +33,7 @@ const LayoutHeaderTitle = styled.p`
   align-items:center;
 `
 
-const user = {
-  id: 1,
-  name: '尹绗'
-}
+const user = null
 export default class index extends Component {
   render() {
     return (
