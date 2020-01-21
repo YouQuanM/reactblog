@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Icon, Input, Modal } from 'antd';
 import { login } from '../../apis/auth';
-
+// import { Response } from '../../type';
 interface LoginProps {
   visible: boolean;
 }
@@ -9,6 +9,12 @@ interface LoginState {
   username: string;
   password: string;
 }
+
+// interface Response {
+//   success: boolean;
+//   data?: object;
+//   msg?: string;
+// }
 
 export default class loginDialog extends Component<LoginProps, LoginState> {
   constructor(props: LoginProps) {
@@ -20,8 +26,10 @@ export default class loginDialog extends Component<LoginProps, LoginState> {
   }
 
   handleOk = () => {
-    login({name: this.state.username, password: this.state.password}).then(res => {
-      console.log(res)
+    login({name: this.state.username, password: this.state.password}).then((res: any) => {
+      if (res.success) {
+        
+      }
     })
   }
 
@@ -30,10 +38,6 @@ export default class loginDialog extends Component<LoginProps, LoginState> {
       username: '',
       password: ''
     })
-  }
-
-  onInputChange = (e: any, tar: string) => {
-    console.log(e, tar)
   }
 
   render() {
@@ -48,7 +52,7 @@ export default class loginDialog extends Component<LoginProps, LoginState> {
           <Form.Item>
             <Input
               value={this.state.username}
-              onChange={e => {this.onInputChange(e, 'username')}}
+              onChange={e => this.setState({username: e.target.value})}
               prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
               placeholder="Username"
             />,
@@ -59,6 +63,7 @@ export default class loginDialog extends Component<LoginProps, LoginState> {
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
               type="password"
               placeholder="Password"
+              onChange={e => this.setState({password: e.target.value})}
             />,
           </Form.Item>
         </Form>
